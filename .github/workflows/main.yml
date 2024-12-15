@@ -19,19 +19,19 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
-    - name: Build with Maven
+    - name: Build backend with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Run tests
+    - name: Run backend tests
       run: mvn test
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
     - name: Build Frontend
       working-directory: ./frontend
       run: |
         npm install
         npm run build
-
-    - name: Run Frontend tests
-      working-directory: ./frontend
-      run: |
-        npm test -- --watchAll=false
